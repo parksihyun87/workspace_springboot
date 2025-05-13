@@ -3,6 +3,7 @@ import Main from "./Main";
 import SalePage from "./SalePage";
 import List from "./List";
 import UpdateProduct from "./UpdateProduct";
+import NewProduct from "./NewProduct";
 
 function App() {
   
@@ -12,7 +13,8 @@ function App() {
         <Route path='/' element={<Main/>}>
           <Route index element={<List/>}></Route>
           <Route path='/detail/:id' element={<SalePage/>}></Route> //상세페이지
-          <Route path='/:params' element={<UpdateProduct/>}></Route> //
+          <Route path='/:params' element={<UpdateProduct/>}></Route> //업데이트
+          <Route path='/newproduct' element={<NewProduct/>}></Route>
         </Route>
       </Routes>
     </>
