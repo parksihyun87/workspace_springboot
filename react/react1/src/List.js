@@ -12,10 +12,7 @@ export default function List(){
                 <Link to ={`/${saleArr[i].id}`}><button>수정버튼1</button></Link><button onClick={(e)=>{dispatch(onDelete(saleArr[i].id))}}>삭제버튼2</button>
                 <br/>
                 </>);
-                // 맵을 쓰자. link to ={"detail../"+t.id} 가능
             }
-    // newArr=saleArr.map((e)=>{
-    // })
     return(
         <>
             {newArr}        
