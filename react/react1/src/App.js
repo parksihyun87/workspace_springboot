@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Main/>}>
           <Route index element={<List/>}></Route>
-          <Route path='/detail/:id' element={<SalePage/>}></Route> //상세페이지
-          <Route path='/:params' element={<UpdateProduct/>}></Route> //업데이트
+          <Route path='/detail/:id' element={<SalePage/>}></Route> 
+          <Route path='/:params' element={<UpdateProduct/>}></Route> 
           <Route path='/newproduct' element={<NewProduct/>}></Route>
         </Route>
       </Routes>

@@ -11,14 +11,14 @@ export default function SalePage(){
           
         }
     }
-
+//product(0이나 언디파인 널)이면 펄스라고 봄 '&&'' 해서 식 넣어주면 참일때만 표시함.
     return(
         <>
            <img src="https://dummyimage.com/200x200/00f/fff.jpg&text=prod"/>
            <br/>
            {newArr}
 
-           //product(0이나 언디파인 널)이면 펄스라고 봄 '&&'' 해서 식 넣어주면 참일때만 표시함.
+           
 
         </>
     )
