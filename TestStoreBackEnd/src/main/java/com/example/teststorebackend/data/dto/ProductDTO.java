@@ -1,6 +1,7 @@
-package com.example.teststorebackend.data;
+package com.example.teststorebackend.data.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ProductDTO {
     private Integer id;
     private String title;

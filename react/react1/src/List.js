@@ -9,7 +9,7 @@ export default function List(){
     for(let i=0; i<saleArr.length; i++){
                 newArr.push(<><Link to ={`/detail/${saleArr[i].id}`}><img src={saleArr[i].imgSrc}/></Link>
                 <p id={saleArr[i].id}>{saleArr[i].title}</p>
-                <Link to ={`/${saleArr[i].id}`}><button>수정버튼1</button></Link><button /* id={saleArr[i].id} onClick={(e)=>
+                <Link to ={`/${saleArr[i].id}`}><button>수정버튼1</button></Link><button id={saleArr[i].id} onClick={(e)=>
                     fetch("http://localhost:8080/product/"+e.target.id,{
                         method:"DELETE"
                 })
@@ -29,7 +29,7 @@ export default function List(){
                 })
                 .catch(error=>{
                     console.log(error);
-                })} */>삭제버튼2</button>
+                })}>삭제버튼2</button>
                 <br/>
                 </>);
             }
