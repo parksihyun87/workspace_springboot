@@ -15,4 +15,6 @@ import lombok.NoArgsConstructor;
 public class ToDoDTO {
     Integer id;
     String task;
+    String description;
+    private boolean completed;
 }

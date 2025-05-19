@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
@@ -36,6 +33,14 @@ public class TodoController {
         ToDoDTO addDTO=this.toDoService.addToDoList(toDoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(addDTO);
     }
+
+    @PutMapping(value="/updatetodolist")
+    public ResponseEntity<ToDoDTO> updateToDoList(@RequestBody ToDoDTO toDoDTO ){
+        ToDoDTO updateDTO= this.toDoService.updateToDoList(toDoDTO);
+        return ResponseEntity.ok(updateDTO);
+    }
+
+
 }
 
 

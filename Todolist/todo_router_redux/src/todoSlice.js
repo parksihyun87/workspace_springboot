@@ -11,9 +11,19 @@ const todoSlice=createSlice({
         },
         removeToDo:(state, action)=>{
             state.items=state.items.filter(t=>t.id!==action.payload);
+        },
+        updateToDo: (state, action) => {
+            state.items = state.items.map((e) => {
+                if (e.id === action.payload) {
+                    return { ...e, completed: true }; // 새로운 객체 반환
+                }
+                return e;
+            });
         }
+
+
     }
 });
 
-export const {addToDo, removeToDo}=todoSlice.actions;
+export const {addToDo, removeToDo,updateToDo}=todoSlice.actions;
 export default todoSlice;

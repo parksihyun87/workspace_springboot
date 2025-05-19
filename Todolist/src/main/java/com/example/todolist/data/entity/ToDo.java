@@ -21,4 +21,5 @@ public class ToDo {
     String task;
     LocalDateTime created;
     String description;
+    private boolean completed;
 }

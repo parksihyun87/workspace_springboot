@@ -42,4 +42,13 @@ public class ToDoService {
         return saveToDoDTO;
     }
 
+   public ToDoDTO updateToDoList(ToDoDTO toDoDTO){
+        ToDo updateToDolist = this.toDoDAO.updateToDoList(toDoDTO.getId(),toDoDTO.getDescription(),LocalDateTime.now());
+        ToDoDTO saveUpdateDto = ToDoDTO.builder()
+                .id(updateToDolist.getId())
+                .task(updateToDolist.getTask())
+                .description(updateToDolist.getDescription())
+                .build();
+        return saveUpdateDto;
+   }
 }
