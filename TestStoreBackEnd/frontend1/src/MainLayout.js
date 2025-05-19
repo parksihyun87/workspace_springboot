@@ -14,7 +14,7 @@ export default function MainLayout(){
                 const response = await apiClient.get("product-list");// 오류나면 자동으로 잡고, 그리고 경로도 설정.
                 response.data.map(p=>dispatch(productAdd(p)));
             } catch(error){
-                console.log(error)
+                console.log(error);
             }
         }
         fetchData();

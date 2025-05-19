@@ -5,6 +5,7 @@ import com.example.teststorebackend.data.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +24,13 @@ public class ProductDAO {
         return product.orElse(null);// 존재하냐 여부 확인. 존재하면 리턴한다. 옵셔날
     }
 
-    public Product saveProduct(String title, String imagesrc, Integer price){
+    public Product saveProduct(String title, String imagesrc, Integer price, LocalDateTime created, String description){
         Product product = Product.builder()
                 .title(title)
                 .imagesrc(imagesrc)
                 .price(price)
+                .created(created)
+                .description(description)
                 .build();
         return this.productRepository.save(product);
     }
@@ -40,11 +43,13 @@ public class ProductDAO {
         return false;
     }
 
-    public Product updateProductById(Integer id,Integer price){
+    public Product updateProductById(Integer id,Integer price,LocalDateTime updated, String description){
         Optional<Product> product = this.productRepository.findById(id);
         Product updateProduct = product.orElse(null);
         if(updateProduct != null){
             updateProduct.setPrice(price);
+            updateProduct.setDescription(description);
+            updateProduct.setCreated(updated);
             return this.productRepository.save(updateProduct);
         }
         return null;

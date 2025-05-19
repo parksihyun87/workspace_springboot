@@ -35,7 +35,6 @@ export default function NewProduct(){
     );
 }
 
-
 /*fetch("http://localhost:8080/new-product",{
 method: "POST",
 headers: {

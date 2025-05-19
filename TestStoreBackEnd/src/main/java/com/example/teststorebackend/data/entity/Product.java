@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
+
 @Entity
 @Table(name="producttbl")
 @Data
@@ -19,4 +22,6 @@ public class Product {
     private String title;
     private Integer price;
     private String imagesrc;
+    private LocalDateTime created;
+    private String description;
 }
