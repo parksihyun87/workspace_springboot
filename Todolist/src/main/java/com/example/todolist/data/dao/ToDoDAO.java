@@ -34,7 +34,7 @@ ToDoDAO {
     }
 
     public ToDo updateToDoList(int id,String description,LocalDateTime created){
-        Optional<ToDo> updateToDo = this.toDoRepository.findById(id);
+        Optional<ToDo> updateToDo = this.toDoRepository.findById(id);// id로 못찾으면 널임.
         if(updateToDo.isPresent()){
             ToDo toDo = updateToDo.get();
             toDo.setDescription(description);
@@ -44,4 +44,21 @@ ToDoDAO {
         }
         return null;
     }
+
+//    public void deleteToDoList(){
+//        this.toDoRepository.deleteByCompleted();
+//    }
+
+    public boolean deleteById(int id){
+        if(toDoRepository.existsById(id)){
+            this.toDoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+//    public List<ToDo> deleteToDoList(int id,boolean completed){
+//        List<ToDo> deleteToDOList= this.toDoRepository.deleteByCompleted(true);
+//        return deleteToDOList;
+//    }
 }

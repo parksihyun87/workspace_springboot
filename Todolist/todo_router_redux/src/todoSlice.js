@@ -19,11 +19,12 @@ const todoSlice=createSlice({
                 }
                 return e;
             });
+        },
+        deleteToDo:(state, action)=>{
+            state.items=[];
         }
-
-
     }
 });
 
-export const {addToDo, removeToDo,updateToDo}=todoSlice.actions;
+export const {addToDo, removeToDo,updateToDo,deleteToDo}=todoSlice.actions;
 export default todoSlice;

@@ -2,12 +2,14 @@ package com.example.todolist.controller;
 
 import com.example.todolist.data.dto.ToDoDTO;
 import com.example.todolist.service.ToDoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +37,19 @@ public class TodoController {
     }
 
     @PutMapping(value="/updatetodolist")
-    public ResponseEntity<ToDoDTO> updateToDoList(@RequestBody ToDoDTO toDoDTO ){
+    public ResponseEntity<ToDoDTO> updateToDoList(@Valid @RequestBody ToDoDTO toDoDTO ){
         ToDoDTO updateDTO= this.toDoService.updateToDoList(toDoDTO);
         return ResponseEntity.ok(updateDTO);
     }
 
-
+    @DeleteMapping(value="/deletetodolist")
+    public ResponseEntity<String> deleteToDoList(){
+        Boolean result = this.toDoService.deleteToDoList();
+        if(result){
+            return ResponseEntity.status(HttpStatus.OK).body("상품삭제성공");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제상품검색 실패");
+    }
 }
 
 
