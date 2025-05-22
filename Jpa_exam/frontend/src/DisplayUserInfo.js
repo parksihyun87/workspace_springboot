@@ -1,4 +1,5 @@
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 export default function DisplayUserInfo() {
     let selector=useSelector(state=>state.user.userList);
@@ -19,6 +20,7 @@ export default function DisplayUserInfo() {
                     <div>{data.mobile2}</div>
                     <div>{data.height}</div>
                     <div>{data.mdate}</div>
+                        <Link to ={`/displayuserinfo/buycondition/${data.userid}`}>구매내역확인</Link>
                     --------------------------
                     </>
             ))}

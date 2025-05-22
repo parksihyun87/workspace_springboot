@@ -59,6 +59,7 @@ export default function DetailedCondition() {
             <form onSubmit={async (e)=>{
                 e.preventDefault();
                 try{
+
                     const p=e.target.locate.value;
                     const p2=e.target.birthyear.value;
                     const response= await apiClient.get(`userinfo/addr-birthyear?addr=${p}&birthyear=${p2}`)
