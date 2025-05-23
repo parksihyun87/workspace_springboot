@@ -30,7 +30,6 @@ function App() {
                     </Route>
                     <Route path="/addcustomer/detailedaddbuy" element={<DetailedAddBuy/>}></Route>
                 </Route>
-
             </Route>
         </Routes>
       </>

@@ -2,7 +2,9 @@ package com.example.jpa_exam.service;
 
 import com.example.jpa_exam.data.dao.BuyDAO;
 import com.example.jpa_exam.data.dto.BuyDTO;
+import com.example.jpa_exam.data.dto.UserDTO;
 import com.example.jpa_exam.data.entity.BuyEntity;
+import com.example.jpa_exam.data.entity.UserEntity;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,20 @@ public class BuyService {
             buyDTOList.add(buyDTO);
         }
         return buyDTOList;
+    }
+
+    public BuyDTO addbuyproduct(BuyDTO buyDTO){
+        BuyEntity addproduct = this.buyDAO.addbuyproduct(buyDTO.getUser().getUserid(),buyDTO.getProdname(),buyDTO.getGroupname(),buyDTO.getPrice(),buyDTO.getAmount());
+        if(addproduct==null){
+            throw new EntityNotFoundException("상품기록 null로 오류를 발생시켰습니다.");
+        }
+        BuyDTO buyDTOGet =  BuyDTO.builder()
+                .user(addproduct.getUser())
+                .prodname(addproduct.getProdname())
+                .groupname(addproduct.getGroupname())
+                .price(addproduct.getPrice())
+                .amount(addproduct.getAmount())
+                .build();
+        return buyDTOGet;
     }
 }
