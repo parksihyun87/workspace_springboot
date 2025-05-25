@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @Builder
 public class OrderDTO {
     private Integer id;
-    private CustomerEntity custid;
-    private BookEntity bookid;
+    private Integer custid;
+    private Integer bookid;
     private Integer saleprice;
     private LocalDate orderdate;
     private Integer ordamount;
