@@ -3,8 +3,7 @@ package com.example.madang.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
@@ -12,6 +11,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "orderstbl")
 public class OrderEntity {
     @Id
@@ -22,12 +24,12 @@ public class OrderEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "custid", nullable = false)
     @JsonBackReference
-    private CustomerEntity custid;
+    private CustomerEntity cust;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "bookid", nullable = false)
     @JsonBackReference
-    private BookEntity bookid;
+    private BookEntity book;
 
     @Column(name = "saleprice", nullable = false)
     private Integer saleprice;

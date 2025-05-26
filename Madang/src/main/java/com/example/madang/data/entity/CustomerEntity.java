@@ -3,8 +3,7 @@ package com.example.madang.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
@@ -13,6 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "customertbl")
 public class CustomerEntity {
     @Id
@@ -33,7 +35,7 @@ public class CustomerEntity {
     @Column(name = "custrate", length = 20)
     private String custrate;
 
-    @OneToMany(mappedBy = "custid")
+    @OneToMany(mappedBy = "cust")
     @JsonBackReference
     private Set<OrderEntity> orderstbls = new LinkedHashSet<>();
 

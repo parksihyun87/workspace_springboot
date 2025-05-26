@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Todolist/demo_todo/demo_todo/frontend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/madangdb_project/frontend" vcs="Git" />
   </component>
 </project>

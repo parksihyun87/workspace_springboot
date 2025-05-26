@@ -3,17 +3,18 @@ package com.example.madang.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "booktbl")
 public class BookEntity {
     @Id
@@ -34,8 +35,10 @@ public class BookEntity {
     @Column(name = "bookamount")
     private Integer bookamount;
 
-    @OneToMany(mappedBy = "bookid")
+    @OneToMany(mappedBy = "book")
     @JsonManagedReference
     private Set<OrderEntity > orderstbls = new LinkedHashSet<>();
     //리스트로 해도 됨.
 }
+
+

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +17,5 @@ public class BookDTO {
     private String publisher;
     private Integer price;
     private Integer bookamount;
+    private List<OrderInfoDTO> orders;
 }
