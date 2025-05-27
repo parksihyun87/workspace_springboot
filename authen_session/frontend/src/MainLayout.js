@@ -1,11 +1,9 @@
 import {Link, Outlet} from "react-router-dom";
 
-
-export default function DistplaySearch(){
-
+export default function MainLayout(){
     return(
         <>
-            디스플서치 테스트
+            <Outlet></Outlet>
         </>
     )
 }

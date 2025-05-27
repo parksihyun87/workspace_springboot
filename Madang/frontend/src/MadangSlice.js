@@ -2,19 +2,24 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const MadangSlice= createSlice({
     name:"madang",
-    initialState:{prodList:[]},
+    initialState:{orderedList:[],prodList:[], bookInfo: null},
     reducers:{
-        addList:(state,action)=>{
-            state.prodList=[];
+        addOrderedList:(state,action)=>{
+            state.orderedList=action.payload;
+        },
+        clearOrderedList:(state,action)=>{
+            state.orderedList=[];
+        },
+        addProdList:(state,action)=>{
             state.prodList=action.payload;
         },
-        clearList:(state,action)=>{
+        clearProdList:(state,action)=>{
             state.prodList=[];
         }
     }
 });
 
-export const{addList,clearList}=MadangSlice.actions;//1.액션생성자를 각 컴퍼넌트에
+export const{addOrderedList,clearOrderedList,addProdList,clearProdList}=MadangSlice.actions;//1.액션생성자를 각 컴퍼넌트에
 export default MadangSlice;
 //크리에이트들은 (소,중)2가지로 시작. 안에도 (소,중) 2개, 2개 이다.
 //리듀서는 (이,:,(스,액)) 4가지로 시작해 화살표 함수
