@@ -3,14 +3,19 @@ package com.example.authen_session.controller;
 import com.example.authen_session.data.dto.AuthenDTO;
 import com.example.authen_session.data.entity.AuthenEntity;
 import com.example.authen_session.data.repository.AuthenRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,5 +46,16 @@ public class AuthenController {
         this.authenRepository.save(authenEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("가입성공");
     }
+
+    @GetMapping(value = "/csrf-token")
+    public ResponseEntity<Map<String,String>> csrfToken(HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());// 언더바도 되긴하지만, CsrfToken.class.getName() 이게 더 나음. 겟 어트리뷰트가 리턴한건 토큰 객체
+
+        Map<String,String> map = new HashMap<>();
+        map.put("csrf-token", csrfToken.getToken());// 토큰 문자열만 있으면 되므로, 문자열만 선택함
+
+        return ResponseEntity.ok(map);// 프론트에게 바디부로 보냄.
+    }
+
 }
 

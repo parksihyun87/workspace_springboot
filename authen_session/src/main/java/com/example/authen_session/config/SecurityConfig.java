@@ -1,19 +1,22 @@
 package com.example.authen_session.config;
 
+import com.example.authen_session.component.CustomAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
@@ -22,7 +25,11 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,6 +46,9 @@ public class SecurityConfig {
             UserDetails userDetails =(UserDetails) auth.getPrincipal();
             responseData.put("username", userDetails.getUsername());// 유저네임을 가져옴 //주요정보만 가져오려고(아디, 패스워드, 롤) 일케 함.
             responseData.put("role", userDetails.getAuthorities());// 여러개 있으면 배열형태로 문자열로 바꿔서 넣어라. 롤이 여러 개 있따면 롤을 그냥 배열정보로 해서 넣음. userDetails.getAuthorities()?
+
+            CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+            responseData.put("csrf-token", token.getToken());// 한번 토큰을 줬으면 다른 값으로 토큰을 줌.
 
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonMessage= objectMapper.writeValueAsString(responseData);//스트링객체로 바꿔줌. 오브젝터가 맵으로 만드는데 용이함.
@@ -59,6 +69,7 @@ public class SecurityConfig {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonMessage= objectMapper.writeValueAsString(responseData);// 맵객체를 제이슨 문자 객체로 바꿈
+
             response.setStatus(401);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -67,10 +78,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/", "/join", "/login").permitAll();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HttpServletResponse httpServletResponse) throws Exception {
+//        http.csrf(csrf -> csrf.disable())//csrf를 비활성화 해서 보안설정을 다르게 한다.
+                http.authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/", "/join", "/login","/csrf-token").permitAll();
                     authorize.requestMatchers("/admin").hasRole("ADMIN");
                     authorize.requestMatchers("/user", "/user/**").hasAnyRole("USER", "ADMIN");
                     authorize.anyRequest().authenticated();
@@ -83,6 +94,18 @@ public class SecurityConfig {
                             .failureHandler(authenticationFailureHandler())
                 )
 
+                .logout(logout->
+                    logout.logoutUrl("/logout")
+                            .logoutSuccessHandler(logoutSuccessHandler())// 로그아웃이 끝나고(밑에 일들이 다 끝나고) 그 결과를 응답객체로 보내주는 작업을 작성함. // 로그아웃 과정에서 서버가 해야할 일을 정해 놓는 과정이다.
+                            .addLogoutHandler((request, response, authentication) -> {
+                                if(request.getSession() != null){// 리퀘스트의 세션정보가 있으면(널이 아니면)
+                                    request.getSession().invalidate();// 서버에서 세션 정보를 무효화 시켜라. 이게 로그아웃인가보네.. 유저의 모든 내용을 가진 전역적 정보.
+                                }
+                                SecurityContextHolder.clearContext(); // aaa 111 주정보를 전역정보로 저장해놓고, 다른 bbb 들어와도 저장해놓고, 다시 aaa 가 요청할때 임시로 aaa의 요청을 임시로 저장해 놓는게 있음. 컨텍스트는 지금 막 처리하고 있는 정보(이번 요청에 대한 정보), 스레드 로컬에 저장함. 컴터는 바구니 가득 인형 눈알붙이기 할라고 전부다 인형 복사해왔는데 그것도 삭제
+                            })                           .deleteCookies("JSESSIONID")// 클라이언트 부라우저에게 제이세션 아이디를 삭제해라라고 (쿠키에 저장한거를) 명령하는 것.
+
+                )
+
                 .cors(cors->cors.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.addAllowedOrigin("http://localhost:3000");// 여러개의 출처에 대하여 허가해도 된다.
@@ -92,9 +115,31 @@ public class SecurityConfig {
                     corsConfiguration.setAllowCredentials(true);
                     return corsConfiguration;
                     //확인
-                }));
+                }))
+
+                .sessionManagement(session->// 중복로그인에 대한 설정.
+                        session.maximumSessions(1)// 세션으로 내가 한번에 만들수 있는 계정을 하나로만 제한함.(내가 로그인 되어있으면 다른 곳에서 로그인하지 못하도록 함) //다른데에서 해서 만료된 것들을 적음. 이벤트 객체는 두번째에서 로그인하려고 하는 이벤트가 발생하면, 이벤트에서 발생할 리스폰스를 가져옴.
+                                .maxSessionsPreventsLogin(false)//폴스하면 기존꺼없애고 로그인, 트루면 이미 되어있어서 못들간다
+                                .expiredSessionStrategy(event->{
+                                    HttpServletResponse response =event.getResponse();
+                                            response.setCharacterEncoding("UTF-8");
+                                            response.getWriter().write("다른 호스트에서 로그인하여 현재 세션이 만료되었습니다.");// 다른 누군가가 접속하면 나한테 들어오는 출력
+                                })
+                        )
+                .exceptionHandling(exception->
+                        exception.authenticationEntryPoint(this.customAuthenticationEntryPoint)// 객체가 필요
+                        );
 
         return http.build();
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return ((request, response, authentication) -> {
+            response.setStatus(200);
+            response. setCharacterEncoding("UTF-8");// 없으면 기본은 아스키 코드
+            response.getWriter().write("Logout 성공");//한글이 들어가면 위의 유니 코드 셋 코딩이 들어감
+        });
     }
 
 }

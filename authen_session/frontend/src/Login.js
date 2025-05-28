@@ -2,18 +2,53 @@ import {useRef, useState} from "react";
 import apiClient from "./apiInstance/apiInstance";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setToken} from "./store";
 
 export default function Login(){
         const usernameRef= useRef();
         const passwordRef= useRef();
         const [message,setMessage]=useState(null);
         const navigate= useNavigate();
+        const csrfToken= useSelector(state=>state.token.token);
+        const dispatch= useDispatch();
+
+    const handleLogin = async ()=>{
+        try {
+            const response= await axios.post("http://localhost:8080/login",// 제슨땜에 형식 안맞아서
+                new URLSearchParams({//x-www-form-urlencoded 형식
+                    username:usernameRef.current.value,
+                    password: passwordRef.current.value
+                }),{
+                    headers:{
+                        "X-CSRF-TOKEN": csrfToken
+                    },
+                    withCredentials:true
+                }
+            );
+            dispatch(setToken(response.data['csrf-token']));
+            console.log(response.data['csrf-token']);
+            setMessage(response.data.username);//response.data.role[0].authority
+            navigate("/admin");
+        } catch (error){
+            if(error.response && error.response.status===401){
+                setMessage(error.response.data.result)
+            }else{
+                console.log(error);
+            }
+        }
+    }
 
     const handleJoin = async ()=>{
         try {
             const response = await apiClient.post("/join", {
                 username: usernameRef.current.value,
                 password: passwordRef.current.value
+            },{
+                headers:{
+                    "X-CSRF-TOKEN": csrfToken
+                },
+                withCredentials:true
             });// 집어 넣을 값
             setMessage(response.data);
         } catch (error){
@@ -25,27 +60,7 @@ export default function Login(){
         }
     }
 
-    const handleLogin = async ()=>{
-        try {
-            const response= await axios.post("http://localhost:8080/login",// 제슨땜에 형식 안맞아서
-                new URLSearchParams({//x-www-form-urlencoded 형식
-                    username:usernameRef.current.value,
-                    password: passwordRef.current.value
-                }),{
-                withCredentials:true// 이걸 넣어야 찌꺼기가 사라지고 유효한 세션을 얻음.위드 크레덴셜로 제대로 된 쿠키 세션아이디를 받아야 인증이 됨.
-                }
-                );
-            setMessage(response.data.username);//response.data.role[0].authority
 
-            // navigate("/admin");
-        } catch (error){
-            if(error.response && error.response.status===401){
-                setMessage(error.response.data.result)
-            }else{
-                console.log(error);
-            }
-        }
-    }
 
     return(
         <>
