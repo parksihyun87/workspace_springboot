@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 export default function AdminComponent(){
     const[message,setMessage]=useState(null);
     const csrfToken = useSelector(state=>state.token.token);
+
     const handleAdmin= async (e)=>{
         try{
             const response = await apiClient.get("/admin",{
