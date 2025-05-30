@@ -17,12 +17,12 @@ export default function AdminAdd(){
                     username:e.target.id.value,
                     password:e.target.password.value
                 }
-                , {
+                ,/* {
                     headers:{
                         "X-CSRF-TOKEN": csrfToken
                     },
                     withCredentials: true
-                });
+                }*/);
             setMessage(response.data);//
         } catch (error) {
             if(error.response && error.response.status===401){// 컨피그 조인 컨트롤러 패일러

@@ -36,9 +36,9 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HttpServletResponse httpServletResponse) throws Exception {
 //        http.csrf(csrf -> csrf.disable());//에씨 씨디
         http.authorizeHttpRequests(authorize ->{
-                authorize.requestMatchers("/","/joinadmin","/login","/csrf-token").permitAll();
+                authorize.requestMatchers("/","/joinadmin","/login","/csrf-token","/password").permitAll();
                 authorize.requestMatchers("/admin").hasRole("ADMIN");
-                authorize.requestMatchers("/user","/user/**").hasAnyRole("USER","ADMIN");
+//                authorize.requestMatchers("/userinfo","/userinfo/**").hasAnyRole("USER","ADMIN");
                 authorize.anyRequest().authenticated();
         })
                 .formLogin((form)->

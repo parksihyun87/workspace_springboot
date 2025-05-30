@@ -16,7 +16,8 @@ export default function DetailedOrdDisplay(){
                 </>)
                 : "주문정보가 없습니다."}
             <hr/>
-            <Link to={"/orderinfo/bookinfo/" + bookInfo.bookId}>뒤로</Link>
+            <Link to={"/searchproduct/searchlist/" + bookInfo.id}>뒤로</Link>
+
             <hr/>
         </>
     );

@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import apiClient from "../api/axiosInstance";
 import {useDispatch} from "react-redux";
-import {adminLogout, userLogStatus} from "../store";
+import {adminLogout, userLogout, userLogStatus} from "../store";
 import {useNavigate} from "react-router-dom";
 
-export default function AdminLogout(){
+export default function UserLogout(){
     const[message,setMessage]=useState(null);
     const dispatch= useDispatch();
     const navigate= useNavigate();
@@ -14,7 +14,7 @@ export default function AdminLogout(){
             try {
                 const response = await apiClient.post("/logout");
                 await setMessage(response.data);
-                dispatch(adminLogout());
+                dispatch(userLogout());
                 dispatch(userLogStatus(Date.now()));
                 navigate("/");
             } catch (error){
@@ -26,7 +26,7 @@ export default function AdminLogout(){
     return (
         <>
             <div>
-            {message}
+                {message}
             </div>
         </>
     );

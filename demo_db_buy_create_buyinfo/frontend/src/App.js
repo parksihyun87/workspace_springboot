@@ -13,37 +13,21 @@ import AddBuyInfo from "./pages/AddBuyInfo";
 import JoinUserResult from "./pages/JoinUserResult";
 import AddBuyInfoResult from "./pages/AddBuyInfoResult";
 import AdminLogin from "./pages/AdminLogin";
-import AdminHome from "./pages/AdminHome";
 import AdminAdd from "./pages/AdminAdd";
-import {useEffect} from "react";
-import apiClient from "./api/axiosInstance";
-import {useDispatch, useSelector} from "react-redux";
-import {setToken} from "./store";
 import AdminLogout from "./pages/AdminLogout";
+import UserLogin from "./pages/UserLogin";
+import UserLogout from "./pages/UserLogout";
 
 function App() {
-    const dispatch= useDispatch();
-    const user=useSelector(state=>state.userInfo.user)
-    useEffect(() => {
-        const fetchData= async ()=>{
-            try {
-                const response= await apiClient.get("/csrf-token",{
-                    withCredentials:true
-                });
-                dispatch(setToken(response.data["csrf-token"]));
-                console.log(response.data["csrf-token"]);
-            } catch (error){
-                console.log(error);
-            }
-        }
-        fetchData();
-    }, user);
     return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout/>}>
             <Route index element={<Home/>}/>
+            <Route path={"/userlogin"} element={<UserLogin/>}></Route>
+            <Route path={"/userlogout"} element={<UserLogout/>}></Route>
             <Route path={"/adminlogin"} element={<AdminLogin/>}></Route>
+            <Route path={"/adminlogout"} element={<AdminLogout/>}></Route>
             <Route path={"/adminadd"} element={<AdminAdd/>}></Route>
             <Route path="/search" element={<ConditionSelect/>}>
               <Route path="/search/detail-condition" element={<DetailCondition/>}/>
@@ -56,11 +40,9 @@ function App() {
                 <Route path={"/create-userinfo/join/result"} element={<JoinUserResult/>} ></Route>
                 <Route path={"/create-userinfo/add-buyinfo/result"} element={<AddBuyInfoResult/>}></Route>
             </Route>
-            <Route path={"/adminlogout"} element={<AdminLogout/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
-
   );
 }
 

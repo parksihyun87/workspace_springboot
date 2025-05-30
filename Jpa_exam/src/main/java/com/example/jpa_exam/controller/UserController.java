@@ -1,16 +1,11 @@
 package com.example.jpa_exam.controller;
 import com.example.jpa_exam.data.dto.UserDTO;
-import com.example.jpa_exam.data.entity.UserEntity;
-import com.example.jpa_exam.data.repository.UserEntityRepository;
 import com.example.jpa_exam.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,16 +37,18 @@ public class UserController {
         return ResponseEntity.ok(userList);
     }
 
-    @PostMapping(value="/adduser")
-    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDTO){
-        UserDTO user = this.userService.addUserInfo(userDTO);
-        return ResponseEntity.ok(user);
-    }
-
     @GetMapping(value="/userid/{userid}")
     public ResponseEntity<Boolean> getDupliUserById(@PathVariable("userid") String userid){
         Boolean isDuplicate = this.userService.getDupliUserById(userid);
         return ResponseEntity.ok(isDuplicate);
     }
+
+    @PostMapping(value="/adduser")
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
+        UserDTO user = this.userService.addUserInfo(userDTO);
+        return ResponseEntity.ok(user);
+    }
+
+
 }
 

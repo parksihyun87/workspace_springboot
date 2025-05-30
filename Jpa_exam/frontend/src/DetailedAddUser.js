@@ -9,19 +9,21 @@ export default function DetailedAddUser() {
     const useridRef = useRef();
     const handlesubmit= async(e)=>{
         e.preventDefault();
-        const p= {
-            userid: e.target.userid.value,
-            username:e.target.username.value,
-            birthyear: Number(e.target.birthyear.value),
-            addr:e.target.addr.value,
-            mobile1:e.target.phone.value.slice(0,3),
-            mobile2:e.target.phone.value.slice(3),
-            height:Number(e.target.height.value),
-            mdate:e.target.mdate.value
-        }
         try{
+            const p= {
+                userid: e.target.userid.value,
+                username:e.target.username.value,
+                birthyear: Number(e.target.birthyear.value),
+                addr:e.target.addr.value,
+                mobile1:e.target.phone.value.slice(0,3),
+                mobile2:e.target.phone.value.slice(3),
+                height:Number(e.target.height.value),
+                mdate:e.target.mdate.value
+            }
+            console.log(p.mdate);
             const response= await apiClient.post("/userinfo/adduser",p);
-            navigate("/addcustomer/detailedadduser/addquestion")
+            // navigate("/addcustomer/detailedadduser/addquestion")
+
         } catch (error){
             console.log(error);
         }

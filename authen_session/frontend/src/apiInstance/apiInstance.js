@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 
 const apiClient= axios.create({
     baseURL:"http://localhost:8080",
@@ -7,5 +8,6 @@ const apiClient= axios.create({
         "Content-Type":"application/json"
     }
 });
+
 
 export default apiClient;
