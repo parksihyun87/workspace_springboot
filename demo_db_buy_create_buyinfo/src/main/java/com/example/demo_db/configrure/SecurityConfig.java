@@ -39,7 +39,7 @@ public class SecurityConfig{
                 authorize.requestMatchers("/","/joinadmin","/login","/csrf-token","/password").permitAll();
                 authorize.requestMatchers("/admin").hasRole("ADMIN");
 //                authorize.requestMatchers("/userinfo","/userinfo/**").hasAnyRole("USER","ADMIN");
-                authorize.anyRequest().authenticated();
+                authorize.anyRequest().authenticated();// 나머지는 인증만 되면 다 할 수 있다.
         })
                 .formLogin((form)->
                         form.loginProcessingUrl("/login")
@@ -51,10 +51,10 @@ public class SecurityConfig{
                         logout.logoutUrl("/logout")
                                 .logoutSuccessHandler(logoutSuccessHandler())
                                 .addLogoutHandler((request,response,auth)->{
-                                    if(request.getSession()!= null){
+                                    if(request.getSession()!= null){// 메모리에 저장되어있으면
                                         request.getSession().invalidate();
                                     }
-                                    SecurityContextHolder.clearContext();
+                                    SecurityContextHolder.clearContext();// 서버의 리퀘스트에는 세션 아이디,토큰 정도만 잇어서 그 외의 정보도 편하게 저장하는 용도를 지움
                                 })
                                 .deleteCookies("JSESSIONID")
                 )
@@ -106,7 +106,7 @@ public class SecurityConfig{
     }
 
     @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler(){
+    public AuthenticationFailureHandler authenticationFailureHandler(){// 로드유저바이네임 실패를 해도 여기가 호출됨.
         return ((request, response, exception) -> {
             Map<String,Object> responseData = new HashMap<>();
             responseData.put("result","로그인 실패");

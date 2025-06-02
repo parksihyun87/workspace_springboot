@@ -24,7 +24,7 @@ export default function UserLogin(){
             await dispatch(setToken(response.data['csrf-token']));
             dispatch(userLogin(response.data.username));
             console.log(response.data['csrf-token']);
-            console.log("역할: ",response.data.roles[0].authority);
+            // console.log("역할: ",response.data.roles[0].authority);
             setMessage(response.data.username);
             console.log(user);
             navigate("/");
