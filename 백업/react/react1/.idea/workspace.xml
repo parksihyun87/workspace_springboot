@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fd18563b-ef1f-4bdb-aa62-04c63394031c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/controller/TodoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/data/dao/ToDoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/data/dto/ToDoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/data/entity/ToDo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/data/repository/ToDoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/src/main/java/com/example/todolist/service/ToDoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Todolist/todo_router_redux/src/api/apiInstance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TestStoreBackEnd/frontend1/src/MainLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../TestStoreBackEnd/frontend1/src/MainLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/data/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/data/dao/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/data/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/data/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TestStoreBackEnd/src/main/java/com/example/teststorebackend/service/ProductService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "parksihyun87"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/parksihyun87/workspace_springboot.git",
+    "accountId": "3fd59910-7b99-4daf-9fe7-11a44186a828"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2xIpjZBY2aHi60Iq9FXFzFFRdOy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/javaStudy/workspace_springboot/react/react1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fd18563b-ef1f-4bdb-aa62-04c63394031c" name="Changes" comment="" />
+      <created>1747635577607</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747635577607</updated>
+      <workItem from="1747635579194" duration="20000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
